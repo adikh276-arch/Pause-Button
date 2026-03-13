@@ -45,7 +45,7 @@ const PauseButton = () => {
     setTimeout(() => {
       setScreen(next);
       setTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const toggleEmotion = (e: string) => {
