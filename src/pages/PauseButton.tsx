@@ -39,6 +39,8 @@ const PauseButton = () => {
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const navigate = useNavigate();
+  const TRANSITION_MS = 700;
+  const SCREEN_SWAP_DELAY_MS = 60;
 
   const goTo = (next: number) => {
     setTransitioning(true);
