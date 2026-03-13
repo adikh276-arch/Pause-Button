@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 interface ActivityLayoutProps {
   children: React.ReactNode;
   onBack?: () => void;
+  hideBack?: boolean;
 }
 
 const ActivityLayout = ({ children, onBack }: ActivityLayoutProps) => {
