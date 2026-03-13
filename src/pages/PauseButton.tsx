@@ -153,7 +153,7 @@ const PauseButton = () => {
         {screen === 3 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              What are you feeling? 💭
+              How are you feeling? 💭
             </h1>
             <p className="text-sm text-secondary font-body mb-4">No judgement — just awareness.</p>
 
