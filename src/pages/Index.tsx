@@ -16,6 +16,9 @@ const Index = () => {
         <Button size="lg" className="w-full" onClick={() => navigate("/pause-button")}>
           Start Pause Button ⏸️
         </Button>
+        <Button size="lg" variant="outline" className="w-full mt-3" onClick={() => navigate("/pause-history")}>
+          View History 📖
+        </Button>
       </div>
     </div>
   );

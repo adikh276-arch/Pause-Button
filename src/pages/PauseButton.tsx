@@ -45,7 +45,7 @@ const PauseButton = () => {
     setTimeout(() => {
       setScreen(next);
       setTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const toggleEmotion = (e: string) => {
@@ -69,7 +69,7 @@ const PauseButton = () => {
       setCustomEmotion("");
       setSelectedAction(null);
       setTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const allEmotions = [...selectedEmotions, ...(customEmotion.trim() ? [customEmotion.trim()] : [])];
@@ -80,7 +80,7 @@ const PauseButton = () => {
   return (
     <ActivityLayout onBack={showBack ? () => navigate("/") : undefined} hideBack={!showBack}>
       <div
-        className={`flex-1 flex flex-col transition-all duration-300 ease-in-out ${
+        className={`flex-1 flex flex-col transition-all duration-500 ease-in-out ${
           transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
         }`}
         key={screen}
@@ -153,7 +153,7 @@ const PauseButton = () => {
         {screen === 3 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              What are you feeling? 💭
+              How are you feeling? 💭
             </h1>
             <p className="text-sm text-secondary font-body mb-4">No judgement — just awareness.</p>
 
