@@ -82,7 +82,7 @@ const PauseButton = () => {
   return (
     <ActivityLayout onBack={showBack ? () => navigate("/") : undefined} hideBack={!showBack}>
       <div
-        className={`flex-1 flex flex-col transition-all duration-500 ease-in-out ${
+        className={`flex-1 flex flex-col transition-all duration-700 ease-out ${
           transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
         }`}
         key={screen}
