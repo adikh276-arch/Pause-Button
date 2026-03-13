@@ -69,7 +69,7 @@ const PauseButton = () => {
       setCustomEmotion("");
       setSelectedAction(null);
       setTransitioning(false);
-    }, 300);
+    }, 600);
   };
 
   const allEmotions = [...selectedEmotions, ...(customEmotion.trim() ? [customEmotion.trim()] : [])];
