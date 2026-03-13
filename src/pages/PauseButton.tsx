@@ -39,13 +39,15 @@ const PauseButton = () => {
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
   const navigate = useNavigate();
+  const TRANSITION_MS = 700;
+  const SCREEN_SWAP_DELAY_MS = 60;
 
   const goTo = (next: number) => {
     setTransitioning(true);
     setTimeout(() => {
       setScreen(next);
-      setTransitioning(false);
-    }, 600);
+      setTimeout(() => setTransitioning(false), SCREEN_SWAP_DELAY_MS);
+    }, TRANSITION_MS);
   };
 
   const toggleEmotion = (e: string) => {
@@ -68,8 +70,8 @@ const PauseButton = () => {
       setSelectedEmotions([]);
       setCustomEmotion("");
       setSelectedAction(null);
-      setTransitioning(false);
-    }, 600);
+      setTimeout(() => setTransitioning(false), SCREEN_SWAP_DELAY_MS);
+    }, TRANSITION_MS);
   };
 
   const allEmotions = [...selectedEmotions, ...(customEmotion.trim() ? [customEmotion.trim()] : [])];
@@ -80,7 +82,7 @@ const PauseButton = () => {
   return (
     <ActivityLayout onBack={showBack ? () => navigate("/") : undefined} hideBack={!showBack}>
       <div
-        className={`flex-1 flex flex-col transition-all duration-500 ease-in-out ${
+        className={`flex-1 flex flex-col transition-all duration-700 ease-out ${
           transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
         }`}
         key={screen}
