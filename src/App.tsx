@@ -18,7 +18,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/pause-button" element={<PauseButton />} />
+          <Route path="/pause-history" element={<PauseHistory />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
