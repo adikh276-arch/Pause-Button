@@ -1,13 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import ActivityLayout from "@/components/ActivityLayout";
-import { getHistory } from "@/lib/pauseHistory";
+import { getHistory, PauseEntry } from "@/lib/pauseHistory";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
 
 const PauseHistory = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const history = getHistory();
+  const [history, setHistory] = useState<PauseEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await getHistory();
+      setHistory(data);
+      setLoading(false);
+    };
+    fetchHistory();
+  }, []);
 
   return (
     <ActivityLayout onBack={() => navigate("/pause-button")}>
@@ -15,7 +26,11 @@ const PauseHistory = () => {
         {t('history_title')}
       </h1>
 
-      {history.length === 0 ? (
+      {loading ? (
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : history.length === 0 ? (
         <div className="flex-1 flex items-center justify-center">
           <p className="text-muted-foreground font-body text-sm text-center">
             {t('no_pauses_yet')}
@@ -31,7 +46,7 @@ const PauseHistory = () => {
               <div>
                 <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">{t('emotions_label')}</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {entry.emotions.map((e, i) => (
+                  {(entry.emotions || []).map((e, i) => (
                     <span key={i} className="bg-accent text-accent-foreground text-xs px-3 py-1 rounded-full font-body">
                       {e}
                     </span>

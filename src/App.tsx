@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound.tsx";
 
 import "@/i18n";
 import { LanguageSelector } from "./components/LanguageSelector";
+import AuthGuard from "./components/AuthGuard";
 
 const queryClient = new QueryClient();
 
@@ -20,12 +21,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter basename="/pause_button">
         <LanguageSelector />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/pause-button" element={<PauseButton />} />
-          <Route path="/pause-history" element={<PauseHistory />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AuthGuard>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/pause-button" element={<PauseButton />} />
+            <Route path="/pause-history" element={<PauseHistory />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </AuthGuard>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -69,11 +69,15 @@ const PauseButton = () => {
     );
   };
 
-  const handleConfirmAction = () => {
+  const handleConfirmAction = async () => {
     const allEmotions = [...selectedEmotions];
     if (customEmotion.trim()) allEmotions.push(customEmotion.trim());
-    saveEntry({ emotions: allEmotions, action: selectedAction || "" });
-    goTo(5);
+    try {
+      await saveEntry({ emotions: allEmotions, action: selectedAction || "" });
+      goTo(5);
+    } catch (error) {
+      console.error("Failed to save entry:", error);
+    }
   };
 
   const handleReset = () => {
