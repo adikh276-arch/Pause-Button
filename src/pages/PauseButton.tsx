@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityLayout from "@/components/ActivityLayout";
 import BreathingCircle from "@/components/BreathingCircle";
@@ -13,7 +13,7 @@ const PauseButton = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const EMOTIONS = [
+  const EMOTIONS = useMemo(() => [
     t('emotion_stressed'), 
     t('emotion_anxious'), 
     t('emotion_restless'), 
@@ -22,9 +22,9 @@ const PauseButton = () => {
     t('emotion_lonely'), 
     t('emotion_calm'), 
     t('emotion_happy')
-  ];
+  ], [t]);
 
-  const ACTION_CATEGORIES = [
+  const ACTION_CATEGORIES = useMemo(() => [
     {
       title: t('cat_mindful'),
       options: [t('opt_deep_breath'), t('opt_5_breaths'), t('opt_close_eyes'), t('opt_sit_quietly'), t('opt_calm_music')],
@@ -45,7 +45,7 @@ const PauseButton = () => {
       title: t('cat_grounding'),
       options: [t('opt_5_things'), t('opt_focus_breathing'), t('opt_hold_cold'), t('opt_notice_sounds')],
     },
-  ];
+  ], [t]);
 
   const [screen, setScreen] = useState(1);
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
@@ -91,13 +91,18 @@ const PauseButton = () => {
     }, TRANSITION_MS);
   };
 
+  const handleBack = () => {
+    if (screen === 1) {
+      navigate("/");
+    } else {
+      goTo(screen - 1);
+    }
+  };
+
   const allEmotions = [...selectedEmotions, ...(customEmotion.trim() ? [customEmotion.trim()] : [])];
 
-  // Only show back on screen 1 (navigates to home)
-  const showBack = screen === 1;
-
   return (
-    <ActivityLayout onBack={showBack ? () => navigate("/") : undefined} hideBack={!showBack}>
+    <ActivityLayout onBack={handleBack}>
       <div
         className={`flex-1 flex flex-col transition-all duration-700 ease-out ${
           transitioning ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
