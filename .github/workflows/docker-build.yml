@@ -26,3 +26,5 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: bunker.mantracare.com/lovable/pause_button:1.0
+          build-args: |
+            VITE_DATABASE_URL=${{ secrets.VITE_DATABASE_URL }}

@@ -7,6 +7,9 @@ RUN npm ci
 
 COPY . .
 
+ARG VITE_DATABASE_URL
+ENV VITE_DATABASE_URL=$VITE_DATABASE_URL
+
 RUN npm run build
 
 FROM nginx:alpine
