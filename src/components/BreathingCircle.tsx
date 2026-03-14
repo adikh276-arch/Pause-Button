@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface BreathingCircleProps {
   duration?: number;
@@ -6,6 +7,7 @@ interface BreathingCircleProps {
 
 const BreathingCircle = ({ duration = 4000 }: BreathingCircleProps) => {
   const [phase, setPhase] = useState<"in" | "out">("in");
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col items-center justify-center py-8">
@@ -43,7 +45,7 @@ const BreathingCircle = ({ duration = 4000 }: BreathingCircleProps) => {
         />
       </div>
       <p className="mt-6 text-sm text-muted-foreground font-body animate-pulse">
-        Breathe in… and breathe out…
+        {t('breathe_in_out')}
       </p>
     </div>
   );

@@ -1,5 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface ActivityLayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface ActivityLayoutProps {
 
 const ActivityLayout = ({ children, onBack, hideBack }: ActivityLayoutProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto">
@@ -19,7 +21,7 @@ const ActivityLayout = ({ children, onBack, hideBack }: ActivityLayoutProps) => 
             className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
           >
             <ChevronLeft size={20} />
-            <span className="text-sm font-body">Back</span>
+            <span className="text-sm font-body">{t('back_btn')}</span>
           </button>
         )}
       </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { query, initSchema } from "@/lib/db";
+import { useTranslation } from "react-i18next";
 
 interface AuthGuardProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface AuthGuardProps {
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const [isAuthResolved, setIsAuthResolved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleAuth = async () => {
@@ -68,19 +70,19 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
         setIsAuthResolved(true);
       } catch (err) {
         console.error("Auth error:", err);
-        setError("Authentication failed. Please try again.");
+        setError(t('auth_failed'));
       }
     };
 
     handleAuth();
-  }, []);
+  }, [t]);
 
   if (!isAuthResolved) {
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-background z-50">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-muted-foreground font-body">Authenticating...</p>
+          <p className="text-muted-foreground font-body">{t('authenticating')}</p>
           {error && <p className="text-destructive text-sm mt-2">{error}</p>}
         </div>
       </div>

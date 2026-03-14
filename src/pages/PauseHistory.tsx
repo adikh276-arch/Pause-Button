@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import ActivityLayout from "@/components/ActivityLayout";
 import { getHistory, PauseEntry } from "@/lib/pauseHistory";
-import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 const PauseHistory = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [history, setHistory] = useState<PauseEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,6 +18,22 @@ const PauseHistory = () => {
     };
     fetchHistory();
   }, []);
+
+  const formatDate = (dateStr: string) => {
+    try {
+      const date = new Date(dateStr);
+      return date.toLocaleString(i18n.language, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    } catch (e) {
+      return dateStr;
+    }
+  };
 
   return (
     <ActivityLayout onBack={() => navigate("/pause-button")}>
@@ -41,7 +56,7 @@ const PauseHistory = () => {
           {history.map((entry) => (
             <div key={entry.id} className="bg-card rounded-2xl p-5 shadow-md space-y-3">
               <p className="text-xs text-muted-foreground font-body">
-                {format(new Date(entry.date), "MMM d, yyyy · h:mm a")}
+                {formatDate(entry.date)}
               </p>
               <div>
                 <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">{t('emotions_label')}</p>

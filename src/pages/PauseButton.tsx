@@ -135,7 +135,7 @@ const PauseButton = () => {
             </div>
 
             <Button size="lg" className="w-full mt-4" onClick={() => goTo(2)}>
-              Activate Pause ✨
+              {t('activate_pause_btn')}
             </Button>
           </>
         )}

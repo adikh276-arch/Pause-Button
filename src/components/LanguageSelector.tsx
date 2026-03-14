@@ -12,24 +12,33 @@ const languages = [
   { code: "en", name: "English" },
   { code: "es", name: "Español" },
   { code: "fr", name: "Français" },
+  { code: "pt", name: "Português" },
   { code: "de", name: "Deutsch" },
+  { code: "ar", name: "العربية" },
   { code: "hi", name: "हिन्दी" },
-  { code: "ja", name: "日本語" },
+  { code: "bn", name: "বাংলা" },
   { code: "zh", name: "中文" },
+  { code: "ja", name: "日本語" },
+  { code: "id", name: "Bahasa Indonesia" },
+  { code: "tr", name: "Türkçe" },
+  { code: "vi", name: "Tiếng Việt" },
   { code: "ko", name: "한국어" },
   { code: "ru", name: "Русский" },
   { code: "it", name: "Italiano" },
+  { code: "pl", name: "Polski" },
+  { code: "th", name: "ไทย" },
+  { code: "tl", name: "Tagalog" },
 ];
 
 export const LanguageSelector = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const changeLanguage = (code: string) => {
     i18n.changeLanguage(code);
     localStorage.setItem("language", code);
   };
 
-  const currentLanguageName = languages.find(l => l.code === i18n.language)?.name || "Language";
+  const currentLanguageName = languages.find(l => l.code === i18n.language)?.name || t('language');
 
   return (
     <div className="fixed top-4 right-4 z-50">
@@ -40,7 +49,7 @@ export const LanguageSelector = () => {
             <span className="hidden sm:inline font-medium text-foreground">{currentLanguageName}</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48 p-1 rounded-xl shadow-lg border-primary/10 bg-background/95 backdrop-blur-md">
+        <DropdownMenuContent align="end" className="w-48 p-1 rounded-xl shadow-lg border-primary/10 bg-background/95 backdrop-blur-md max-h-[70vh] overflow-y-auto">
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
