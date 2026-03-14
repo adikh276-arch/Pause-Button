@@ -7,38 +7,51 @@ import ActionCategory from "@/components/ActionCategory";
 import { Button } from "@/components/ui/button";
 import { saveEntry } from "@/lib/pauseHistory";
 
-const EMOTIONS = ["Stressed", "Anxious", "Restless", "Bored", "Frustrated", "Lonely", "Calm", "Happy"];
-
-const ACTION_CATEGORIES = [
-  {
-    title: "🧘 Mindful / Calming",
-    options: ["Take a deep breath", "Take 5 slow breaths", "Close your eyes for a moment", "Sit quietly", "Listen to calming music"],
-  },
-  {
-    title: "💪 Physical Reset",
-    options: ["Stretch your body", "Go for a short walk", "Do 10 jumping jacks", "Wash your face", "Step outside for fresh air"],
-  },
-  {
-    title: "🎯 Distraction / Refocus",
-    options: ["Start a small task", "Organize a small space", "Read something short", "Watch a short video"],
-  },
-  {
-    title: "💬 Connection",
-    options: ["Call a friend", "Text a friend", "Talk to a family member", "Check in with someone"],
-  },
-  {
-    title: "🌍 Grounding",
-    options: ["Name 5 things you see", "Focus on your breathing", "Hold something cold", "Notice sounds around you"],
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const PauseButton = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const EMOTIONS = [
+    t('emotion_stressed'), 
+    t('emotion_anxious'), 
+    t('emotion_restless'), 
+    t('emotion_bored'), 
+    t('emotion_frustrated'), 
+    t('emotion_lonely'), 
+    t('emotion_calm'), 
+    t('emotion_happy')
+  ];
+
+  const ACTION_CATEGORIES = [
+    {
+      title: t('cat_mindful'),
+      options: [t('opt_deep_breath'), t('opt_5_breaths'), t('opt_close_eyes'), t('opt_sit_quietly'), t('opt_calm_music')],
+    },
+    {
+      title: t('cat_physical'),
+      options: [t('opt_stretch'), t('opt_walk'), t('opt_jacks'), t('opt_wash_face'), t('opt_fresh_air')],
+    },
+    {
+      title: t('cat_distraction'),
+      options: [t('opt_small_task'), t('opt_organize'), t('opt_read_short'), t('opt_watch_video')],
+    },
+    {
+      title: t('cat_connection'),
+      options: [t('opt_call_friend'), t('opt_text_friend'), t('opt_talk_family'), t('opt_check_in')],
+    },
+    {
+      title: t('cat_grounding'),
+      options: [t('opt_5_things'), t('opt_focus_breathing'), t('opt_hold_cold'), t('opt_notice_sounds')],
+    },
+  ];
+
   const [screen, setScreen] = useState(1);
   const [selectedEmotions, setSelectedEmotions] = useState<string[]>([]);
   const [customEmotion, setCustomEmotion] = useState("");
   const [selectedAction, setSelectedAction] = useState<string | null>(null);
   const [transitioning, setTransitioning] = useState(false);
-  const navigate = useNavigate();
   const TRANSITION_MS = 700;
   const SCREEN_SWAP_DELAY_MS = 60;
 
@@ -91,19 +104,19 @@ const PauseButton = () => {
         {screen === 1 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              Pause Button ⏸️
+              {t('start_btn')}
             </h1>
-            <p className="text-sm text-secondary font-body mb-4">Every pause is a superpower.</p>
+            <p className="text-sm text-secondary font-body mb-4">{t('every_pause_power')}</p>
 
             <div className="flex-1 space-y-4">
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Cravings can sneak up on anyone.
+                {t('cravings_sneak')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Sometimes the best action is to stop, breathe, and notice what is happening.
+                {t('sometimes_best_stop')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                This quick pause can help you regain control and clarity.
+                {t('quick_pause_control')}
               </p>
 
               {/* Pause illustration */}
@@ -127,26 +140,26 @@ const PauseButton = () => {
         {screen === 2 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              Take a moment 🌊
+              {t('take_moment')}
             </h1>
-            <p className="text-sm text-secondary font-body mb-4">Let's slow things down together.</p>
+            <p className="text-sm text-secondary font-body mb-4">{t('slow_things_together')}</p>
 
             <div className="flex-1 space-y-4">
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Close your eyes for a few seconds.
+                {t('close_eyes_seconds')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Breathe in… and breathe out.
+                {t('breathe_in_out')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Notice your surroundings, your feelings, and your body.
+                {t('notice_surroundings')}
               </p>
 
               <BreathingCircle />
             </div>
 
             <Button size="lg" className="w-full mt-4" onClick={() => goTo(3)}>
-              I'm Ready 🙌
+              {t('ready_btn')}
             </Button>
           </>
         )}
@@ -155,16 +168,16 @@ const PauseButton = () => {
         {screen === 3 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              How are you feeling? 💭
+              {t('how_feeling')}
             </h1>
-            <p className="text-sm text-secondary font-body mb-4">No judgement — just awareness.</p>
+            <p className="text-sm text-secondary font-body mb-4">{t('no_judgement')}</p>
 
             <div className="flex-1 space-y-4">
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Pausing is a chance to check in.
+                {t('pausing_chance_check')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Choose any emotions that match how you feel right now.
+                {t('choose_emotions')}
               </p>
 
               <div className="flex flex-wrap gap-2 pt-2">
@@ -182,7 +195,7 @@ const PauseButton = () => {
                 <textarea
                   value={customEmotion}
                   onChange={(e) => setCustomEmotion(e.target.value)}
-                  placeholder="Or write your own feeling... ✍️"
+                  placeholder={t('custom_feeling_placeholder')}
                   className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                   rows={2}
                 />
@@ -195,7 +208,7 @@ const PauseButton = () => {
               onClick={() => goTo(4)}
               disabled={selectedEmotions.length === 0 && !customEmotion.trim()}
             >
-              Next Step 👣
+              {t('next_step_btn')}
             </Button>
           </>
         )}
@@ -204,13 +217,13 @@ const PauseButton = () => {
         {screen === 4 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              What will you do next? 🚀
+              {t('what_do_next')}
             </h1>
-            <p className="text-sm text-secondary font-body mb-4">Pick one small action to move forward.</p>
+            <p className="text-sm text-secondary font-body mb-4">{t('pick_small_action')}</p>
 
             <div className="flex-1 space-y-4 overflow-y-auto">
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Now that you have paused and noticed how you feel, choose one action that can help you move forward.
+                {t('now_paused_choose')}
               </p>
 
               <div className="space-y-2 pt-2">
@@ -232,7 +245,7 @@ const PauseButton = () => {
               onClick={handleConfirmAction}
               disabled={!selectedAction}
             >
-              Confirm ✅
+              {t('confirm_btn')}
             </Button>
           </>
         )}
@@ -241,25 +254,25 @@ const PauseButton = () => {
         {screen === 5 && (
           <>
             <h1 className="text-2xl font-heading font-bold text-foreground mt-4 mb-2">
-              Nice pause! 🌸
+              {t('nice_pause')}
             </h1>
-            <p className="text-sm text-secondary font-body mb-4">You're doing amazing.</p>
+            <p className="text-sm text-secondary font-body mb-4">{t('doing_amazing')}</p>
 
             <div className="flex-1 space-y-4">
               <p className="text-justified text-foreground font-body leading-relaxed">
-                You just gave yourself an important moment of awareness.
+                {t('important_moment_awareness')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Every pause you take makes it easier to stay in control.
+                {t('easier_stay_control')}
               </p>
               <p className="text-justified text-foreground font-body leading-relaxed">
-                Small steps build big changes. 🌱
+                {t('small_steps_big_changes')}
               </p>
 
               {/* Summary Card */}
               <div className="bg-card rounded-2xl p-5 shadow-md space-y-3 mt-4">
                 <div>
-                  <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">Emotions Logged</p>
+                  <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">{t('emotions_logged')}</p>
                   <div className="flex flex-wrap gap-1.5">
                     {allEmotions.map((e) => (
                       <span key={e} className="bg-accent text-accent-foreground text-xs px-3 py-1 rounded-full font-body">
@@ -269,7 +282,7 @@ const PauseButton = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">Action Chosen</p>
+                  <p className="text-xs text-muted-foreground font-body uppercase tracking-wide mb-1">{t('action_chosen')}</p>
                   <p className="text-sm font-body text-foreground">{selectedAction}</p>
                 </div>
               </div>
@@ -277,13 +290,13 @@ const PauseButton = () => {
 
             <div className="space-y-3 mt-4">
               <Button size="lg" className="w-full" onClick={() => navigate("/")}>
-                Done 🎉
+                {t('done_btn')}
               </Button>
               <Button size="lg" variant="secondary" className="w-full" onClick={handleReset}>
-                Try Another Pause 🔄
+                {t('try_another_pause')}
               </Button>
               <Button size="lg" variant="outline" className="w-full" onClick={() => navigate("/pause-history")}>
-                View History 📖
+                {t('view_history_btn')}
               </Button>
             </div>
           </>

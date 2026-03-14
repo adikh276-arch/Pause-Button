@@ -8,6 +8,9 @@ import PauseButton from "./pages/PauseButton.tsx";
 import PauseHistory from "./pages/PauseHistory.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
+import "@/i18n";
+import { LanguageSelector } from "./components/LanguageSelector";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -15,7 +18,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/pause_button">
+        <LanguageSelector />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/pause-button" element={<PauseButton />} />
